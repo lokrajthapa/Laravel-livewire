@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 
@@ -30,21 +31,28 @@ class LoginRegister extends Component
     }
 
     public function login()
-    {
+    { 
+       
         $validateData = $this->validate([
            'email'=> 'required|email',
            'password'=>'required'
         ]);
 
-        if(\Auth::attempt(['email' => $email, 'password' => $password]))
+      
+
+        if(Auth::attempt(['email'=>$this->email,'password'=>$this->password]))
         {
+
           session()->flash('message','You are login successfully.');
+
+          session()->regenerate();
+          
+          return redirect()->to('/dashboard');
+
         }
         else{
-            session()->flash('error','Invalid credentials');
+            session()->flash('error','The provided credentials do not match our records.');
         }
-
-
     }
 
     public function register()
@@ -66,11 +74,10 @@ class LoginRegister extends Component
             'email'=>$this->email,
             'password'=>$this->password
         ]);
+
         session()->flash('message','your account has been registered successfully, go to login page');
 
         $this->resetInputFields();
-
-
 
     }
 
