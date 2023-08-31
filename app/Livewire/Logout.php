@@ -9,7 +9,7 @@ class Logout extends Component
 {
     public function logout()
     {
-        dd("you are here");
+      
         Auth::logout();
         // session()->invalidate();
         // session()->flash('success', 'You have been logged out.');
