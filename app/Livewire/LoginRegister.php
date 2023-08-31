@@ -46,13 +46,16 @@ class LoginRegister extends Component
           session()->flash('message','You are login successfully.');
 
           session()->regenerate();
-          
+
           return redirect()->to('/dashboard');
 
         }
-        else{
+        else
+        {
             session()->flash('error','The provided credentials do not match our records.');
         }
+
+
     }
 
     public function register()

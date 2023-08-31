@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,18 @@ Route::get('/', function () {
 });
 Route::get('/login', function () {
     return view('livewire.home');
-});
+})->name('login');
+
+Route::get('/logout', function() 
+{
+    Auth::logout();
+
+    return redirect('/');
+})->name('logout');
 
 Route::get('/dashboard', function () 
 {
-    return view('livewire.home');
-});
+    return view('livewire.dashboard.dashboard');
+})->middleware('auth');
+
+
