@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ItemController;
 
 
 /*
@@ -22,12 +23,19 @@ Route::get('/login', function () {
     return view('livewire.home');
 })->name('login');
 
+
+
 Route::get('/logout', function() 
 {
     Auth::logout();
 
     return redirect('/');
 })->name('logout');
+
+
+Route::get('items',[ItemController::class,'index']);
+
+
 
 Route::get('/dashboard', function () 
 {
