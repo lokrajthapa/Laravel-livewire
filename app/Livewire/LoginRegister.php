@@ -47,7 +47,7 @@ class LoginRegister extends Component
 
           session()->regenerate();
 
-          return redirect()->to('/dashboard');
+          return redirect()->to('/items');
 
         }
         else

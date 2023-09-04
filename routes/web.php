@@ -33,7 +33,7 @@ Route::get('/logout', function()
 })->name('logout');
 
 
-Route::get('items',[ItemController::class,'index']);
+Route::get('items',[ItemController::class,'index'])->middleware('auth');
 
 
 

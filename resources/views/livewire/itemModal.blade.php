@@ -58,6 +58,11 @@
                             </div>
 
                     </div>
+                     @if ($image)
+                    Image Preview:
+                       <img src="{{ $image->temporaryUrl() }}" class="h-20 w-20 my-2 ">
+                     @endif
+             
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  data-modal-hide="defaultModal" >Submit</button>
 
                 </form>
@@ -128,6 +133,18 @@
                             </div>
 
                     </div>
+                <div class="my-1"> 
+                    @if ($image)
+                              <img src="{{ $image->temporaryUrl() }}" class="h-20 w-20" alt="image" >
+                        
+                    @else
+                           <img src="{{  asset('storage') }}/{{ $old_image }}" class="h-20 w-20" alt="image" >
+                             
+                        
+                    @endif
+                </div>
+                <input type="hidden" wire:model="old_image" name="" id="">
+
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  data-modal-hide="UpdateItemModal" >Update</button>
                     
                 </form>

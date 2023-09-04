@@ -6,33 +6,50 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Item;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 class ItemList extends Component
 {
     use WithFileUploads;
     use WithPagination;
-    public $title, $description, $image , $item_id;
+    public $title, $description, $image , $item_id, $old_image;
+    public $search = '';
 
     public function render()
     {
-        $items=Item::orderBy('id','DESC')->paginate(5);
+        // where('title', 'like', '%'.$this->search.'%')
+        $items=Item::where('title', 'like', '%'.$this->search.'%')->orderBy('id','DESC')->paginate(5);
 
         return view('livewire.item-list', ['items'=>$items]);
     }
 
     public function saveItem()
     {  
+        // $user->assignRole('writer');
         $validateData = $this->validate([
             'title'=> 'required',
            'description'=>'required',
            'image' => 'image', 
 
         ]);
-        $this->image->store('images');
+        $filename="";
+        if($this->image)
+        {
+            $filename=$this->image->store('images','public');
+        }
+        else 
+        {
+            $filename=Null;
+        }
+
+        
+
         Item::create([
             'title'=>$this->title,
             'description'=>$this->description,
+            'image'=> $filename,
         ]);
         session()->flash('message','Item Created successfully');
         $this->resetInput();
@@ -45,6 +62,7 @@ class ItemList extends Component
         $this->title='';
         $this->description='';
         $this->image='';
+        $this->old_image='';
 
 
     }
@@ -61,8 +79,7 @@ class ItemList extends Component
          $this->item_id=$item->id;
          $this->title=$item->title;
          $this->description=$item->description;
-
-
+         $this->old_image=$item->image;
         }
         else{
             return redirect()->to('/items');
@@ -72,17 +89,31 @@ class ItemList extends Component
     }
     public function UpdateItem()
     {
+      
         $validateData = $this->validate([
             'title'=> 'required',
-           'description'=>'required',
-           'image' => 'image', 
-
+            'description'=>'required',
+            'image' => 'image | nullable', 
         ]);
 
+        
+      
+        $filename="";
+        if($this->image)
+        {
+            $filename=$this->image->store('images','public');
+        }
+        else 
+        {
+            $filename=$this->old_image;
+        }
+
+       
+        
         Item::where('id',$this->item_id)->update([
             'title'=>$this->title,
             'description'=>$this->description,
-            'image'=>$this->image,
+            'image'=> $filename,
         ]);
         session()->flash('message','Item updated successfully');
         $this->resetInput();
