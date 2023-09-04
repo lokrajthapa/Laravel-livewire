@@ -64,4 +64,21 @@ npm run dev in another termainal
 
 Your Laravel application should now be accessible at http://localhost:8000.
 
+login with these credentials
+for admin
+ email:-admin@admin.com
+ password:-adminpassword
+
+
+ for editor
+ email:-editor@editor.com
+ password:-editorpassword
+
+ for normal user
+ email:-user@user.com
+ password:-userpassword
+
+
+
+
 
