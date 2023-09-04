@@ -44,10 +44,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-        //     $user->givePermissionTo('edit articles');
+    
 
-        // // Adding permissions via a role
-        // $user->assignRole('writer');
-
-        // $role->givePermissionTo('edit articles');
 }

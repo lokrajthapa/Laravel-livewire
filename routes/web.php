@@ -17,7 +17,7 @@ use App\Http\Controllers\ItemController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('livewire.home');
 });
 Route::get('/login', function () {
     return view('livewire.home');
@@ -29,7 +29,7 @@ Route::get('/logout', function()
 {
     Auth::logout();
 
-    return redirect('/');
+    return redirect('/login');
 })->name('logout');
 
 
